@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Analytics Dashboard - Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-preview {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 30px 0;
+        }
+        
+        .dashboard-preview img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .cta-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            color: white;
+        }
+        
+        .metrics-section {
+            padding: 50px 0;
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-container h3 {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">HR Analytics Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metrics">Key Metrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#github">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>HR Analytics Dashboard</h1>
+            <p class="lead">Interactive workforce analytics and manpower planning tool for HR professionals</p>
+            <a href="#dashboard" class="btn btn-light btn-lg mt-3">
+                <i class="fas fa-chart-line me-2"></i> Explore Dashboard
+            </a>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Interactive Dashboard Preview</h2>
+            <div class="dashboard-preview">
+                <img src="static/images/dashboard_preview.png" alt="HR Analytics Dashboard" 
+                    onerror="this.src='https://via.placeholder.com/1200x600/3498db/ffffff?text=HR+Analytics+Dashboard+Preview';">
+            </div>
+            <div class="text-center mt-4">
+                <p>This interactive dashboard provides real-time insights into your organization's workforce metrics</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section id="metrics" class="metrics-section bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Key HR Metrics</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="metric-card">
+                        <i class="fas fa-users feature-icon"></i>
+                        <div class="metric-value">486</div>
+                        <h4>Total Headcount</h4>
+                        <p>Current organization size</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="metric-card">
+                        <i class="fas fa-user-plus feature-icon"></i>
+                        <div class="metric-value">24</div>
+                        <h4>New Joiners</h4>
+                        <p>This month's additions</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="metric-card">
+                        <i class="fas fa-user-minus feature-icon"></i>
+                        <div class="metric-value">18</div>
+                        <h4>Leavers</h4>
+                        <p>This month's departures</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="metric-card">
+                        <i class="fas fa-chart-pie feature-icon"></i>
+                        <div class="metric-value">3.7%</div>
+                        <h4>Attrition Rate</h4>
+                        <p>Current monthly percentage</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Visualized Analytics</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Headcount Trend</h3>
+                        <img src="static/images/headcount_chart.png" alt="Headcount Trend" 
+                            class="img-fluid" onerror="this.src='https://via.placeholder.com/600x300/f1f1f1/666666?text=Headcount+Trend+Chart';">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Attrition Rate</h3>
+                        <img src="static/images/attrition_chart.png" alt="Attrition Rate" 
+                            class="img-fluid" onerror="this.src='https://via.placeholder.com/600x300/f1f1f1/666666?text=Attrition+Rate+Chart';">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Monthly Movement</h3>
+                        <img src="static/images/movement_chart.png" alt="Monthly Movement" 
+                            class="img-fluid" onerror="this.src='https://via.placeholder.com/600x300/f1f1f1/666666?text=Staff+Movement+Chart';">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h3>Staffing Forecast</h3>
+                        <img src="static/images/forecast_chart.png" alt="Staffing Forecast" 
+                            class="img-fluid" onerror="this.src='https://via.placeholder.com/600x300/f1f1f1/666666?text=Staffing+Forecast+Chart';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Dashboard Features</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-edit feature-icon"></i>
+                        <h3>Custom Data Input</h3>
+                        <p>Input your organization's specific staffing numbers including headcount, new joiners, and leavers for each month.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-chart-area feature-icon"></i>
+                        <h3>Visual Analytics</h3>
+                        <p>Interactive charts showing headcount trends, staff movement, and attrition rates over time.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line feature-icon"></i>
+                        <h3>Predictive Forecast</h3>
+                        <p>Predictive analysis showing projected headcount and hiring needs for upcoming months.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-palette feature-icon"></i>
+                        <h3>Custom Branding</h3>
+                        <p>Customize dashboard with your company name, colors, and title for a personalized experience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-exclamation-triangle feature-icon"></i>
+                        <h3>Attrition Alerts</h3>
+                        <p>Automatic highlighting of months with high attrition rates that require attention.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-download feature-icon"></i>
+                        <h3>Data Export</h3>
+                        <p>Export your staffing data to CSV format for further analysis or reporting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Section -->
+    <section id="github" class="cta-section">
+        <div class="container">
+            <h2>Get the Dashboard Code</h2>
+            <p class="lead">View the source code, contribute, or deploy your own instance</p>
+            <a href="https://github.com/alphyjosh/hr-analytics-dashboard" class="cta-button" target="_blank">
+                <i class="fab fa-github me-2"></i> View on GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 HR Analytics Dashboard. Developed by Alphy Maria Saju.</p>
+            <p>
+                <a href="https://github.com/alphyjosh" class="text-white me-3" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="text-white me-3" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
