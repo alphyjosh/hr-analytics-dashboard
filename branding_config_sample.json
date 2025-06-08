@@ -1,0 +1,9 @@
+{
+    "company_name": "ABC Corporation",
+    "logo_url": "https://via.placeholder.com/150x50?text=ABC+Corp",
+    "primary_color": "#2c3e50",
+    "secondary_color": "#e74c3c",
+    "accent_color": "#3498db",
+    "font_family": "'Segoe UI', Arial, sans-serif",
+    "dashboard_title": "HR Analytics Dashboard - ABC Corp"
+}

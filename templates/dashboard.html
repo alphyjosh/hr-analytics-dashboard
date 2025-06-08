@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}HR Analytics Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4">{{ session.get('branding', {}).get('dashboard_title', 'HR Analytics Dashboard') }}</h1>
+        <p class="text-center text-muted mb-5">Staffing and Attrition Analysis</p>
+    </div>
+</div>
+
+<!-- Key Metrics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body">
+                <div class="metric-value">{{ headcount[-1] }}</div>
+                <div class="metric-label">Current Headcount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ "%.1f"|format(avg_attrition) }}%</div>
+            <div class="metric-label">Avg. Monthly Attrition</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ total_joiners }}</div>
+            <div class="metric-label">Total New Hires</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="metric-value">{{ net_growth }}</div>
+            <div class="metric-label">Net Growth</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Charts -->
+<div class="row">
+    <!-- Monthly Headcount -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-users"></i> Monthly Headcount Trend
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <img src="data:image/png;base64,{{ headcount_chart }}" alt="Monthly Headcount Trend">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Monthly Staff Movement -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-exchange-alt"></i> Monthly Staff Movement
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <img src="data:image/png;base64,{{ movement_chart }}" alt="Monthly Staff Movement">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Monthly Attrition Rate -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i> Monthly Attrition Rate
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <img src="data:image/png;base64,{{ attrition_chart }}" alt="Monthly Attrition Rate">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Staffing Forecast -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-area"></i> Staffing Forecast
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    {% if forecast_chart %}
+                    <img src="data:image/png;base64,{{ forecast_chart }}" alt="Staffing Forecast">
+                    {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Need at least 3 months of data for forecasting.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly Data Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-table"></i> Monthly Staffing Data
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Headcount</th>
+                                <th>New Joiners</th>
+                                <th>Leavers</th>
+                                <th>Attrition Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(months|length) %}
+                            <tr>
+                                <td>{{ months[i] }}</td>
+                                <td>{{ headcount[i] }}</td>
+                                <td>{{ joiners[i] }}</td>
+                                <td>{{ leavers[i] }}</td>
+                                <td {% if attrition_rates[i] > 5 %}class="high-attrition"{% endif %}>
+                                    {{ "%.1f"|format(attrition_rates[i]) }}%
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="d-flex justify-content-end mt-3">
+                    <a href="{{ url_for('edit_data') }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Edit Data
+                    </a>
+                    <button class="btn btn-secondary ms-2" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function exportData() {
+        fetch('{{ url_for("export_data") }}')
+            .then(response => response.json())
+            .then(data => {
+                // Create a blob with the CSV data
+                const blob = new Blob([data.data], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create a temporary link to download the file
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = data.filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error exporting data:', error));
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pytesseract
+Pillow
+reportlab
+requests
+jinja2
+spacy
+pyzbar
+opencv-python
+openai
+rapidfuzz
+SQLAlchemy
+passlib[bcrypt]
+python-jose[cryptography]

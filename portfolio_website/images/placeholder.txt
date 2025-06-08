@@ -1,0 +1,6 @@
+This is a placeholder file for the images directory. 
+Please add your images here as per the README.md instructions:
+- profile.jpg
+- project1.png (or .jpg)
+- project2.png (or .jpg)
+- project3.png (or .jpg)
